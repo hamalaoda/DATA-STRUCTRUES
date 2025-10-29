@@ -18,5 +18,7 @@ typedef struct Node
 extern Node *creatNode(int data);
 extern Node *insert(Node *root, int data);
 extern void preorderTraversal(Node *root);
-extern void inoredrTraversal(Node *root);
+extern void inorderTraversal(Node *root);
 extern void postorderTraversal(Node *root);
+extern Node *deleteNode(Node *root, int data);
+extern Node *search(Node *root, int data);
