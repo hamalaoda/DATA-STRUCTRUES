@@ -15,5 +15,8 @@ typedef struct Node
     struct Node *right; // 右子树
 } Node;
 
-extern Node *creatNode(Node *root, int data);
+extern Node *creatNode(int data);
 extern Node *insert(Node *root, int data);
+extern void preorderTraversal(Node *root);
+extern void inoredrTraversal(Node *root);
+extern void postorderTraversal(Node *root);
