@@ -38,7 +38,7 @@ int main(int argc, char const *argv[])
     }
 
     /*删除节点*/
-    int key2 = 38;
+    int key2 = 68;
     root = deleteNode(root, key2);
     printf("删除节点 %d 后的中序遍历: ", key2);
     inorderTraversal(root);
