@@ -107,6 +107,17 @@ extern Node *search(Node *root, int data)
         root->right = search(root->right, data);
     }
 }
+
+// 查找最大子节点
+Node *findMax(Node *root)
+{
+    while (root->right != NULL)
+    {
+        root = root->right;
+    }
+    return root;
+}
+
 // 删除节点
 Node *deleteNode(Node *root, int data)
 {
@@ -124,13 +135,13 @@ Node *deleteNode(Node *root, int data)
         root->left = deleteNode(root->left, data); // 递归左子树；每递归一次根的左子树成为新的根节点
     }
 
-    if (data > root->right) // data大于根内容
+    if (data > root->data) // data大于根内容
     {
 
         root->right = deleteNode(root->right, data); // 递归右子树；每递归一次根的右子树成为新的根节点
     }
 
-    else
+    else // （data == root.data）
     {
         // 3、判断父节点是否有子节点
 
@@ -145,15 +156,35 @@ Node *deleteNode(Node *root, int data)
 
         if (root->left != NULL && root->right == NULL) // 只有左节点
         {
-            /* code */
+            Node *temp = root;
+            root = root->left;
+            free(temp);
         }
 
         if (root->left == NULL && root->right != NULL)
         {
-            /* code */
+            Node *temp = root;
+            root = root->right;
+            free(temp);
         }
 
-        // （3）有两个子节点
+        // （3）有两个子节点 (右子树的最大值替换根节点)
+        else
+        {
+            Node *temp = findMax(root);
+            root->data = temp->data;                           // 仅替换根节点的值
+            root->right = deleteNode(root->right, temp->data); // 删除最大值的节点
+        }
     }
-    return root ;//返回当前的根节点
+    return root; // 返回当前的根节点
+}
+
+void destoryTree(Node *root)
+{
+    if (root != NULL)
+    {
+        destoryTree(root->left);
+        destoryTree(root->right);
+        free(root);
+    }
 }

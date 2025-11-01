@@ -1,7 +1,7 @@
-#ifndef ___TREE__
-#define __TREE__
+#ifndef ___TREE_H__
+#define __TREE_H__
 
-#endif
+
 
 #include <stdio.h>
 #include <string.h>
@@ -22,3 +22,5 @@ extern void inorderTraversal(Node *root);
 extern void postorderTraversal(Node *root);
 extern Node *deleteNode(Node *root, int data);
 extern Node *search(Node *root, int data);
+extern void destoryTree(Node* root);
+#endif
