@@ -67,7 +67,7 @@ void inorderTraversal(Node *root)
     {
         // 先递归左子树；打印根内容；递归右子树
         inorderTraversal(root->left);
-        printf("%d", root->data);
+        printf("%d ", root->data);
         inorderTraversal(root->right);
     }
     return;
@@ -81,7 +81,7 @@ void postorderTraversal(Node *root)
         // 先递归左子树；递归右子树；打印根内容
         postorderTraversal(root->left);
         postorderTraversal(root->right);
-        printf("%d", root->data);
+        printf("%d ", root->data);
     }
     return;
 }
@@ -108,12 +108,12 @@ extern Node *search(Node *root, int data)
     }
 }
 
-// 查找最大子节点
-Node *findMax(Node *root)
+// 查找右子树的最小值
+Node *findMin(Node *root) // 传入的是右子树
 {
-    while (root->right != NULL)
+    while (root->left != NULL)
     {
-        root = root->right;
+        root = root->left;
     }
     return root;
 }
@@ -129,13 +129,13 @@ Node *deleteNode(Node *root, int data)
 
     // 2、判断根内容与data
 
-    if (data < root->data) //  data小于根内容
+    else if (data < root->data) //  data小于根内容
     {
 
         root->left = deleteNode(root->left, data); // 递归左子树；每递归一次根的左子树成为新的根节点
     }
 
-    if (data > root->data) // data大于根内容
+    else if (data > root->data) // data大于根内容
     {
 
         root->right = deleteNode(root->right, data); // 递归右子树；每递归一次根的右子树成为新的根节点
@@ -154,26 +154,26 @@ Node *deleteNode(Node *root, int data)
 
         // （2）有一个子节点
 
-        if (root->left != NULL && root->right == NULL) // 只有左节点
+        else if (root->left != NULL && root->right == NULL) // 只有左节点
         {
             Node *temp = root;
             root = root->left;
             free(temp);
         }
 
-        if (root->left == NULL && root->right != NULL)
+        else if (root->left == NULL && root->right != NULL)
         {
             Node *temp = root;
             root = root->right;
             free(temp);
         }
 
-        // （3）有两个子节点 (右子树的最大值替换根节点)
+        // （3）有两个子节点 (右子树的最小节点)
         else
         {
-            Node *temp = findMax(root);
+            Node *temp = findMin(root->right);
             root->data = temp->data;                           // 仅替换根节点的值
-            root->right = deleteNode(root->right, temp->data); // 删除最大值的节点
+            root->right = deleteNode(root->right, temp->data); // 删除右子树中最小值的节点
         }
     }
     return root; // 返回当前的根节点
